@@ -9,7 +9,7 @@ export default function Post({ post, onEdit, onDelete }) {
 
       <div className={s.actions}>
         <button onClick={() => onEdit(post)}>✏️ Editar</button>
-         <button className={s.delete} onClick={() => onDelete(post.post_id)}>
+         <button className={s.delete} onClick={() => onDelete(post.postagem_id)}>
           🗑️ Excluir
         </button>
       </div>

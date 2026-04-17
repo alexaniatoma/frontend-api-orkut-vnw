@@ -1,16 +1,33 @@
+import { useState, useContext } from "react";
+import api from "../../services/api";
+import { AuthContext } from "../../context/AuthContext";
 import s from "./Login.module.scss";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-
+  const {login} = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const navigate = useNavigate();
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    try {
+      const res = await api.post("/login", {email, senha});
+      login(res.data.token);
+      alert("Login realizado com sucesso!");
+      navigate("/");
+    } catch (error) {
+      alert("Erro ao realizar o login, tente novamente!");
+    }
+  }
 
   return (
     <div className={s.loginContainer}>
-      <form onSubmit={}>
+      <form onSubmit={handleLogin}>
         <h2>Login</h2>
-        <input placeholder="Email" onChange={} />
-        <input type="password" placeholder="Senha" onChange={} />
+        <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="Senha" onChange={(e) => setSenha(e.target.value)} />
         <button>Entrar</button>
       </form>
       <div>
